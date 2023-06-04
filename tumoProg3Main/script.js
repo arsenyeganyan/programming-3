@@ -19,8 +19,8 @@ let appear;
 spawn.addEventListener("click", function spawn(){
     appear = true;
     console.log("Spawned!");
+    socket.emit("receive spawn", spawn);
 });
-socket.emit("receive spawn", appear);
 
 summer.addEventListener("click", () => {
     season = "summer";

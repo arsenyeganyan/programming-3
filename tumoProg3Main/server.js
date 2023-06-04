@@ -3,7 +3,9 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var fs = require('fs');
-server.listen(3000);
+server.listen(3000, () => {
+    console.log("Server is running");
+});
 
 const Grass = require("./Grass");
 const GrassEater = require("./GrassEater");
@@ -18,8 +20,8 @@ app.get('/', function (req, res) {
    res.redirect('index.html');
 });
 
-function generate(matLen, gr, grEat, pr, grOb, impr, vil, appear) {
-   let matrix = [];
+function generate(matLen, gr, grEat, pr, grOb, impr, vil) {
+    let matrix = [];
    for (let i = 0; i < matLen; i++) {
        matrix[i] = [];
        for (let j = 0; j < matLen; j++) {
@@ -65,22 +67,25 @@ function generate(matLen, gr, grEat, pr, grOb, impr, vil, appear) {
            matrix[y][x] = 5;
        }
    }
+
+   const show = (spawn) => {   
     if(appear){
-        for (let i = 0; i < vil; i++) {
-            let x = Math.floor(Math.random() * matLen)
-            let y = Math.floor(Math.random() * matLen)
-            console.log(x, y);
-            if (matrix[y][x] == 0) {
-                matrix[y][x] = 6;
-            }
-        }
-    }
+           for (let i = 0; i < vil; i++) {
+               let x = Math.floor(Math.random() * matLen)
+               let y = Math.floor(Math.random() * matLen)
+               console.log(x, y);
+               if (matrix[y][x] == 0) {
+                   matrix[y][x] = 6;
+               }
+           }
+       }
+   }
+   io.on("receive spawn", show);
 
     io.emit("send matrix", matrix);
     return matrix;
 }
 
-io.on("receive spawn", generate);
 matrix = generate(25, 45, 24, 20, 20, 30, 10);
 
 grassArr = [];
@@ -138,6 +143,7 @@ function createObject(){
 }
 createObject();
 
+//adding the stats to the json file
 //60fps = 16.67ms
 setInterval(() => {
     let check = matrix.includes(0);
@@ -145,10 +151,10 @@ setInterval(() => {
 }, 16.67);
 
 function transfer(check){
+    var msg = JSON.stringify(counter);
+    console.log(msg);
     if(check === false){
-        var msg = JSON.stringify(counter);
         fs.writeFileSync("statistics.json", msg);
-        console.log(msg);
     }
 }
 io.on("include", transfer);
