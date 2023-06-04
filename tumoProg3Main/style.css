@@ -1,0 +1,84 @@
+body{
+    margin: auto;
+    width: 30%;
+}
+
+.season--settings{
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.season--buttons{
+    display: flex;
+    justify-content: space-around;
+    
+}
+
+.spring, .summer, .fall, .winter{
+    border: 5px;
+    border-color: black;
+    outline: none;
+    background: linear-gradient(124deg,
+    #1ddde8,
+    #2b1de8);
+    cursor: pointer;
+    border-radius: 3px;
+    color: white;
+    box-shadow: 1px 2px 2px black;
+}
+
+.spring:hover, .summer:hover, .fall:hover, .winter:hover{
+    background: linear-gradient(124deg,
+    #18bdc6,
+    #2217bb);
+    transition: all 0.3s;
+}
+
+.spring:active, .summer:active, .fall:active, .winter:active{
+    background: linear-gradient(124deg,
+    #13969d,
+    #1b1295);
+    cursor: grabbing;
+}
+
+.season--title, .project--title{
+    font-size: 20px;
+    color: rgb(95, 95, 95);
+    text-transform: uppercase;
+}
+
+.project--title{
+    color: rgb(74, 73, 73);
+    margin-top: 5px;
+    text-decoration: underline;
+}
+
+.spawn{
+    margin-top: 30px;
+}
+
+.spawn--button{
+    border: 5px;
+    border-color: black;
+    outline: none;
+    background: linear-gradient(124deg,
+    #d36b5b,
+    #e1c05c);
+    cursor: pointer;
+    border-radius: 3px;
+    color: white;
+    box-shadow: 1px 2px 2px black;
+}
+
+.spawn--button:hover{
+    background: linear-gradient(124deg,
+    #b35b4d,
+    #bb9f4d);
+}
+
+.spawn--button:active{
+    background: linear-gradient(124deg,
+    #964b40,
+    #9e8742);
+    cursor: grabbing;
+}
